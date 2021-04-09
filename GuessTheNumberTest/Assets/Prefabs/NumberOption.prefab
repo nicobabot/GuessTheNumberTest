@@ -223,6 +223,7 @@ MonoBehaviour:
   _canvasGroup: {fileID: 4797464040986085217}
   _correctOptionColor: {r: 0.015929442, g: 0.6981132, b: 0, a: 1}
   _wrongOptionColor: {r: 0.5754717, g: 0.0027144956, b: 0.0027144956, a: 1}
+  _fadeDuration: 2
 --- !u!1 &3442717244628718859
 GameObject:
   m_ObjectHideFlags: 0

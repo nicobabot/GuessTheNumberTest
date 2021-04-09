@@ -10,20 +10,18 @@ public class NumberOption : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    [Header("Data")]
+    [Header("Visual Info")]
     [SerializeField] private Color _correctOptionColor;
     [SerializeField] private Color _wrongOptionColor;
-
+    [SerializeField] private float _fadeDuration;
 
     private int _myNumber;
-    private float _fadeDuration;
     private Color _initialColor;
 
     //Have parent to send warning that means player has chosen
-    public void Initialize(int number, float fadeDuration)
+    public void Initialize(int number)
     {
         _myNumber = number;
-        _fadeDuration = fadeDuration;
         _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 0);
     }
 
