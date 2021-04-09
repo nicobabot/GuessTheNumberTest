@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class ExerciceGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
+    List<int> _testList = new List<int>();
+
     void Start()
     {
-        
+        _testList.Add(5);
+        _testList.Add(7);
+        _testList.Add(8); 
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ShuffleList();
+        }
+    }
+
+    private void ShuffleList()
+    {
+        _testList.Shuffle();
+
+        foreach (var item in _testList)
+        {
+            Debug.Log(item);
+        }
     }
 }
