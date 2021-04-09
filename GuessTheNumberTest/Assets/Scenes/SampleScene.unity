@@ -384,6 +384,7 @@ MonoBehaviour:
   _grid: {fileID: 381901933}
   _numberOptionObject: {fileID: 7807734526508240599, guid: 86c2d079ae9c8d342b691efe0dddc588,
     type: 3}
+  _numberWord: {fileID: 1280891760}
 --- !u!1 &843409356
 GameObject:
   m_ObjectHideFlags: 0
