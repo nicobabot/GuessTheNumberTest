@@ -22,6 +22,7 @@ public class NumberOption : MonoBehaviour
     public void Initialize(int number)
     {
         _myNumber = number;
+        _numberText.text = number.ToString();
         _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 0);
     }
 

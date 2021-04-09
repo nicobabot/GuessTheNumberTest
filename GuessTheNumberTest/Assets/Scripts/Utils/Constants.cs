@@ -28,22 +28,25 @@ public static class Constants
     {
         string words = "";
 
-        if ((number / 1000000) > 0)
+        int millionValue = 1000000;
+        if ((number / millionValue) > 0)
         {
-            words += NumberToWords(number / 1000000) + " million ";
-            number %= 1000000;
+            words += NumberToWords(number / millionValue) + " million ";
+            number %= millionValue;
         }
 
-        if ((number / 1000) > 0)
+        int thousandValue = 1000;
+        if ((number / thousandValue) > 0)
         {
-            words += NumberToWords(number / 1000) + " thousand ";
-            number %= 1000;
+            words += NumberToWords(number / thousandValue) + " thousand ";
+            number %= thousandValue;
         }
 
-        if ((number / 100) > 0)
+        int hundredValue = 100;
+        if ((number / hundredValue) > 0)
         {
-            words += NumberToWords(number / 100) + " hundred ";
-            number %= 100;
+            words += NumberToWords(number / hundredValue) + " hundred ";
+            number %= hundredValue;
         }
 
         return words;
