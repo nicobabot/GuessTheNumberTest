@@ -16,11 +16,16 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _numberWord;
     [SerializeField] private ExerciceAnswer _exerciceAnswer;
 
+    [Header("Text Data")]
+    [SerializeField] private string _textDocument;
+
     private List<NumberOption> _numbers = new List<NumberOption>();
     private ExerciceGenerator _exerciceGenerator;
+    private TextResourcesManager _textManager;
 
     void Start()
     {
+        _textManager = new TextResourcesManager(_textDocument);
         _exerciceGenerator = new ExerciceGenerator();
         for (int i = 0; i < _maxChoices; ++i)
         {
@@ -35,7 +40,7 @@ public class ExerciceGame : MonoBehaviour
     {
         Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
 
-        _numberWord.text = Constants.NumberToWords(exerciceData.correctNumber);
+        _numberWord.text = _textManager.NumberToWords(exerciceData.correctNumber);
 
         yield return _numberWord.DoAlphaTransition(1, 2);
         yield return new WaitForSeconds(2);
@@ -68,7 +73,7 @@ public class ExerciceGame : MonoBehaviour
         {
             Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
             Debug.Log(exerciceData.correctNumber);
-            Debug.Log(Constants.NumberToWords(exerciceData.correctNumber));
+            Debug.Log(_textManager.NumberToWords(exerciceData.correctNumber));
         }
     }
 }

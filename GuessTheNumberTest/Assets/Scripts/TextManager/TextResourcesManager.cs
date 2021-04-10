@@ -1,16 +1,28 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public static class Constants
+[System.Serializable]
+public class TextResource
 {
-    static string[] unitsMap = new string [] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", 
-                "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+    public string[] unitsMap;
+    public string[] tensMap;
+}
 
-    static string[] tensMap = new string[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-    public static string NumberToWords(int number)
+public class TextResourcesManager
+{
+    public static TextResource TextResources => _textResources;
+    private static TextResource _textResources;
+
+    public TextResourcesManager(string textResourcesPath)
     {
+        TextAsset temp = Resources.Load(textResourcesPath) as TextAsset;
+        _textResources = JsonUtility.FromJson<TextResource>(temp.text);
+    }
+
+    public string NumberToWords(int number)
+    {
+        TextResource _textResources = TextResourcesManager.TextResources;
+
         if (number == 0)
             return "zero";
 
@@ -20,11 +32,11 @@ public static class Constants
         string words = "";
 
         words += GetBiggerThanHundredString(number);
-        words += GetUnitTensString(number);
+        words += GetUnitTensString(number, _textResources);
         return words;
     }
 
-    private static string GetBiggerThanHundredString(int number)
+    private string GetBiggerThanHundredString(int number)
     {
         string words = "";
 
@@ -52,15 +64,16 @@ public static class Constants
         return words;
     }
 
-    private static string GetUnitTensString(int number)
+    private string GetUnitTensString(int number, TextResource _textResources)
     {
         string words = "";
+        string[] unitsMap = _textResources.unitsMap;
+        string[] tensMap = _textResources.tensMap;
 
         if (number > 0)
         {
             if (words != "")
                 words += "and ";
-
 
             if (number < 20)
                 words += unitsMap[number];
