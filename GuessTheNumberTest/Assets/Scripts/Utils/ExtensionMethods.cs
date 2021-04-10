@@ -7,12 +7,12 @@ public static class ExtensionMethods
 {
     public static void Shuffle<T>(this List<T> list)
     {
-        var count = list.Count;
-        var last = count - 1;
-        for (var i = 0; i < last; ++i)
+        int count = list.Count;
+        int last = count - 1;
+        for (int i = 0; i < last; ++i)
         {
-            var r = UnityEngine.Random.Range(i, count);
-            var tmp = list.GetValueOrDefault(i);
+            int r = Random.Range(i, count);
+            T tmp = list.GetValueOrDefault(i);
             list[i] = list.GetValueOrDefault(r);
             list[r] = tmp;
         }

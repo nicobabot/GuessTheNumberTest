@@ -340,6 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 745421358}
   - component: {fileID: 745421359}
+  - component: {fileID: 745421360}
   m_Layer: 5
   m_Name: ExerciceGame
   m_TagString: Untagged
@@ -385,6 +386,19 @@ MonoBehaviour:
   _numberOptionObject: {fileID: 7807734526508240599, guid: 86c2d079ae9c8d342b691efe0dddc588,
     type: 3}
   _numberWord: {fileID: 1280891760}
+  _exerciceAnswer: {fileID: 745421360}
+--- !u!114 &745421360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745421357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55fb1753326c134f8a4a4d07f9b411b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &843409356
 GameObject:
   m_ObjectHideFlags: 0

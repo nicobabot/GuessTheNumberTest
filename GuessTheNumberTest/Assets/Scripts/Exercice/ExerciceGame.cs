@@ -14,7 +14,7 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private Transform _grid;
     [SerializeField] private NumberOption _numberOptionObject;
     [SerializeField] private TextMeshProUGUI _numberWord;
-
+    [SerializeField] private ExerciceAnswer _exerciceAnswer;
 
     private List<NumberOption> _numbers = new List<NumberOption>();
     private ExerciceGenerator _exerciceGenerator;
@@ -34,8 +34,8 @@ public class ExerciceGame : MonoBehaviour
     private IEnumerator PlayExercice()
     {
         Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
-        _numberWord.text = Constants.NumberToWords(exerciceData.correctNumber);
 
+        _numberWord.text = Constants.NumberToWords(exerciceData.correctNumber);
 
         yield return _numberWord.DoAlphaTransition(1, 2);
         yield return new WaitForSeconds(2);
@@ -47,12 +47,20 @@ public class ExerciceGame : MonoBehaviour
             NumberOption nb = _numbers.GetValueOrDefault(i);
             if (nb != null)
             {
-                nb.Initialize(exerciceData.choices[i]);
+                nb.Initialize(exerciceData.choices[i], i, _exerciceAnswer);
                 StartCoroutine(nb.ShowOption());
             }
         }
-    }
+        _exerciceAnswer.InitializeExercice(exerciceData, _numbers);
 
+        yield return new WaitUntil(() => _exerciceAnswer.HasEndExercice);
+
+        foreach (NumberOption nb in _numbers)
+            StartCoroutine(nb.HideOption());
+        //Wait to hide
+
+        StartCoroutine(PlayExercice());
+    }
 
     void Update()
     {

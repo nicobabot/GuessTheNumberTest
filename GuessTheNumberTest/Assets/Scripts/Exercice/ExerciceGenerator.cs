@@ -6,6 +6,7 @@ public class Exercice
 {
     public int correctNumber;
     public List<int> choices = new List<int>();
+    public int correctIndexChoice;
 }
 
 public class ExerciceGenerator
@@ -16,6 +17,7 @@ public class ExerciceGenerator
         exercice.correctNumber = Random.Range(minRandomRange, maxRandomRange);
         exercice.choices = GetListOfChoices(maxChoices, minRandomRange, maxRandomRange, exercice.correctNumber);
         exercice.choices.Shuffle();
+        exercice.correctIndexChoice = exercice.choices.IndexOf(exercice.correctNumber);
         return exercice;
     }
 
@@ -24,6 +26,11 @@ public class ExerciceGenerator
         int retValue = 0;
         List<int> choices = new List<int>();
         choices.Add(exception);
+
+        if (!CanGenerateAllChoices(maxChoices, minRandomRange, maxRandomRange))
+        {
+            return choices;
+        }
 
         for (int i = 0; i < maxChoices - 1; ++i)
         {
@@ -38,4 +45,9 @@ public class ExerciceGenerator
         return choices;
     }
 
+    private bool CanGenerateAllChoices(int maxChoices, int minRandomRange, int maxRandomRange)
+    {
+        int lengthChoices = Mathf.Abs(maxRandomRange) - Mathf.Abs(minRandomRange);
+        return lengthChoices > maxChoices;
+    }
 }

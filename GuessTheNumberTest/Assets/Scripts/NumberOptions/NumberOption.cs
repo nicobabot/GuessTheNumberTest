@@ -16,12 +16,16 @@ public class NumberOption : MonoBehaviour
     [SerializeField] private float _fadeDuration;
 
     private int _myNumber;
+    private int _id;
     private Color _initialColor;
+    private ExerciceAnswer _answer;
 
     //Have parent to send warning that means player has chosen
-    public void Initialize(int number)
+    public void Initialize(int number, int id, ExerciceAnswer answer)
     {
         _myNumber = number;
+        _id = id;
+        _answer = answer;
         _numberText.text = number.ToString();
         _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 0);
     }
@@ -61,6 +65,7 @@ public class NumberOption : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            _canvasGroup.transform.localScale= new Vector3(newAlpha, newAlpha, newAlpha);
             _canvasGroup.alpha = newAlpha;
             yield return null;
         }
@@ -69,36 +74,11 @@ public class NumberOption : MonoBehaviour
     public void ChooseNumber()
     {
         //Warn parent the number that has been chosen
+        _answer.NumberChosen(_myNumber, _id);
     }
 
     public void ResetValues()
     {
         _numberText.color = _initialColor;
-    }
-
-    //debug
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y)) 
-        {
-            _fadeDuration = 2;
-            StartCoroutine(ShowOption());
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            _fadeDuration = 2;
-            StartCoroutine(HideOption());
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SetCorrectOption();
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SetWrongOption();
-        }
     }
 }
