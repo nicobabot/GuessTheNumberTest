@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public static class ExtensionMethods
 {
@@ -12,6 +15,19 @@ public static class ExtensionMethods
             var tmp = list.GetValueOrDefault(i);
             list[i] = list.GetValueOrDefault(r);
             list[r] = tmp;
+        }
+    }
+
+    public static IEnumerator DoAlphaTransition(this TextMeshProUGUI textMesh,float endValue, float duration)
+    {
+        float elapsedTime = 0;
+        float startValue = textMesh.alpha;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            textMesh.alpha = newAlpha;
+            yield return null;
         }
     }
 

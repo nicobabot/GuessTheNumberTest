@@ -22,15 +22,37 @@ public class ExerciceGame : MonoBehaviour
     void Start()
     {
         _exerciceGenerator = new ExerciceGenerator();
-        Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
-        _numberWord.text = Constants.NumberToWords(exerciceData.correctNumber);
-        for (int i = 0; i < exerciceData.choices.Count; ++i)
+        for (int i = 0; i < _maxChoices; ++i)
         {
             NumberOption nb = Instantiate(_numberOptionObject, _grid);
-            nb.Initialize(exerciceData.choices[i]);
             _numbers.Add(nb);
         }
+        _numberWord.alpha = 0;
+        StartCoroutine(PlayExercice());
     }
+
+    private IEnumerator PlayExercice()
+    {
+        Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
+        _numberWord.text = Constants.NumberToWords(exerciceData.correctNumber);
+
+
+        yield return _numberWord.DoAlphaTransition(1, 2);
+        yield return new WaitForSeconds(2);
+        yield return _numberWord.DoAlphaTransition(0, 2);
+
+
+        for (int i = 0; i < exerciceData.choices.Count; ++i)
+        {
+            NumberOption nb = _numbers.GetValueOrDefault(i);
+            if (nb != null)
+            {
+                nb.Initialize(exerciceData.choices[i]);
+                StartCoroutine(nb.ShowOption());
+            }
+        }
+    }
+
 
     void Update()
     {
