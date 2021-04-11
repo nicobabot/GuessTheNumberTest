@@ -31,7 +31,6 @@ public class ExerciceAnswer : MonoBehaviour
     public bool HasEndExercice => _hasEndExercice;
     private bool _hasEndExercice;
 
-    private bool _isNew;
     private List<NumberExercice> _numbers = new List<NumberExercice>();
     private OptionsController _optionsController;
     private Exercice _exercice;
@@ -54,8 +53,7 @@ public class ExerciceAnswer : MonoBehaviour
         //If we already used the number or we need to create it
         int number = _exercice.correctNumber;
         _numExercice = HasPlayedNumber(number);
-        _isNew = _numExercice == null;
-        if (_isNew)
+        if (_numExercice == null)
         {
             _numExercice = new NumberExercice(number, _failResetCounter);
         }
