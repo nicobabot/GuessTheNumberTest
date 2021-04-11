@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class NumberExercice
@@ -8,6 +7,7 @@ public class NumberExercice
     public int attempts;
     public int timesFailed;
 
+    //Value to reset exercice answer animation
     private int _resetCounterValue = 0;
 
     public NumberExercice(int newNumber, int resetCounterValue)
@@ -51,8 +51,8 @@ public class ExerciceAnswer : MonoBehaviour
         _exercice = exercice;
         _optionsController = optionsController;
 
+        //If we already used the number or we need to create it
         int number = _exercice.correctNumber;
-
         _numExercice = HasPlayedNumber(number, out _itNum);
         _isNew = _numExercice == null;
         if (_isNew)
@@ -75,6 +75,7 @@ public class ExerciceAnswer : MonoBehaviour
         {
             SuccessExercice();
         }
+        _hasEndExercice = true;
     }
 
     private void FailedExercice(int index)
@@ -92,24 +93,24 @@ public class ExerciceAnswer : MonoBehaviour
             _optionsController.ShowFailedAndCorrect(index);
         }
 
-        //Send to global counter a fail
         _numExercice.ResetCounter();
         _numbers.Add(_numExercice);
+
+        //Send to global event fail
         onIncorrectAnswer?.Invoke();
-        _hasEndExercice = true;
     }
 
     private void SuccessExercice()
     {
-        //Send to global counter a success
         //Success Animation
         _optionsController.ShowCorrect();
 
         //Correct answer -> Force reset counter
         _numExercice.ResetCounter(true);
         _numbers.Add(_numExercice);
+
+        //Send to global event success
         onCorrectAnswer?.Invoke();
-        _hasEndExercice = true;
     }
 
     private NumberExercice HasPlayedNumber(int number, out int it) 

@@ -12,8 +12,6 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private float _timeShowingAnswer;
 
     [Header("Exercice Objects")]
-    [SerializeField] private Transform _grid;
-    [SerializeField] private NumberOption _numberOptionObject;
     [SerializeField] private TextMeshProUGUI _numberWord;
     [SerializeField] private OptionsController _optionsController;
     [SerializeField] private ExerciceAnswer _exerciceAnswer;

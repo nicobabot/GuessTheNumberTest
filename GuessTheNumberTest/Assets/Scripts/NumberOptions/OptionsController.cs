@@ -6,7 +6,7 @@ public class OptionsController : MonoBehaviour
 {
     [Header("Object Data")]
     [SerializeField] private NumberOption _numberOptionObject;
-    [SerializeField] private Transform _grid;
+    [SerializeField] private RectTransform _grid;
 
     [Header("Visual Info")]
     [SerializeField] private Color _correctOptionColor;
