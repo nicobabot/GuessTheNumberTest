@@ -28,6 +28,8 @@ public class NumberExercice
 public class ExerciceAnswer : MonoBehaviour
 {
     [SerializeField] private int _failResetCounter = 2;
+    [SerializeField] private WrongAnswers[] _wrongAnswers;
+
     public bool HasEndExercice => _hasEndExercice;
     private bool _hasEndExercice;
 
@@ -41,8 +43,8 @@ public class ExerciceAnswer : MonoBehaviour
     public delegate void CorrectAnswer();
     public static event CorrectAnswer onCorrectAnswer;
 
-    public delegate void IncorrectAnswer();
-    public static event IncorrectAnswer onIncorrectAnswer;
+    public delegate void WrongAnswer();
+    public static event WrongAnswer onWrongAnswer;
 
     public void StartExerciceAnswer(Exercice exercice, OptionsController optionsController)
     {
@@ -80,22 +82,18 @@ public class ExerciceAnswer : MonoBehaviour
     {
         ++_numExercice.timesFailed;
 
-        if (_numExercice.timesFailed == 1)
+        //Get the correct answer related to times failed this number
+        WrongAnswers answer = GetWrongAnswer(_numExercice.timesFailed);
+        if (answer != null)
         {
-            //First Fail Animation
-            _optionsController.ShowFailed(index);
-        }
-        else if (_numExercice.timesFailed == 2)
-        {
-            //Second Fail Animation
-            _optionsController.ShowFailedAndCorrect(index);
+            answer.DoAnswer(index, _optionsController);
         }
 
         _numExercice.ResetCounter();
         _numbers.Add(_numExercice);
 
         //Send to global event fail
-        onIncorrectAnswer?.Invoke();
+        onWrongAnswer?.Invoke();
     }
 
     private void SuccessExercice()
@@ -116,6 +114,18 @@ public class ExerciceAnswer : MonoBehaviour
         foreach (NumberExercice item in _numbers)
         {
             if (item.number == number)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private WrongAnswers GetWrongAnswer(int failIndex)
+    {
+        foreach (WrongAnswers item in _wrongAnswers)
+        {
+            if (item.FailCounterIndex == failIndex)
             {
                 return item;
             }

@@ -11,13 +11,13 @@ public class AnswersCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        ExerciceAnswer.onIncorrectAnswer += AddIncorrectCounter;
+        ExerciceAnswer.onWrongAnswer += AddIncorrectCounter;
         ExerciceAnswer.onCorrectAnswer += AddCorrectCounter;
     }
 
     private void OnDisable()
     {
-        ExerciceAnswer.onIncorrectAnswer -= AddIncorrectCounter;
+        ExerciceAnswer.onWrongAnswer -= AddIncorrectCounter;
         ExerciceAnswer.onCorrectAnswer -= AddCorrectCounter;
     }
 
