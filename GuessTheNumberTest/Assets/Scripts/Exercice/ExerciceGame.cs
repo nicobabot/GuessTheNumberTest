@@ -40,6 +40,7 @@ public class ExerciceGame : MonoBehaviour
     {
         Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
 
+        Debug.Log(exerciceData.correctNumber);
         _numberWord.text = _textManager.NumberToWords(exerciceData.correctNumber);
 
         yield return _numberWord.DoAlphaTransition(1, 2);

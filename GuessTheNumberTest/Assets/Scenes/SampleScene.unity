@@ -380,13 +380,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxChoices: 3
-  _minRandomRange: 0
-  _maxRandomRange: 100
+  _minRandomRange: 1000000
+  _maxRandomRange: 2000000
   _grid: {fileID: 381901933}
   _numberOptionObject: {fileID: 7807734526508240599, guid: 86c2d079ae9c8d342b691efe0dddc588,
     type: 3}
   _numberWord: {fileID: 1280891760}
   _exerciceAnswer: {fileID: 745421360}
+  _textDocument: Text/TextResources
 --- !u!114 &745421360
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,11 @@ public class TextResource
 {
     public string[] unitsMap;
     public string[] tensMap;
+    public string[] hundredMap;
+    public string thousandValue;
+    public string millionValue;
+    public string andValue;
+    public string minusValue;
 }
 
 public class TextResourcesManager
@@ -27,12 +32,10 @@ public class TextResourcesManager
             return "zero";
 
         if (number < 0)
-            return "minus " + NumberToWords(Math.Abs(number));
+            return _textResources.minusValue + " " + NumberToWords(Math.Abs(number));
 
         string words = "";
-
-        words += GetBiggerThanHundredString(number);
-        words += GetUnitTensString(number, _textResources);
+        words = GetBiggerThanHundredString(number);
         return words;
     }
 
@@ -43,28 +46,37 @@ public class TextResourcesManager
         int millionValue = 1000000;
         if ((number / millionValue) > 0)
         {
-            words += NumberToWords(number / millionValue) + " million ";
+            int value = number / millionValue;
+            words += NumberToWords(value) + " " + _textResources.millionValue + " ";
             number %= millionValue;
         }
 
         int thousandValue = 1000;
         if ((number / thousandValue) > 0)
         {
-            words += NumberToWords(number / thousandValue) + " thousand ";
+            int value = number / thousandValue;
+            if (value != 1)
+            {
+                words += NumberToWords(value) + " ";
+            }
+            words += _textResources.thousandValue + " ";
             number %= thousandValue;
         }
 
         int hundredValue = 100;
         if ((number / hundredValue) > 0)
         {
-            words += NumberToWords(number / hundredValue) + " hundred ";
+            int value = number / hundredValue;
+            words += _textResources.hundredMap.GetValueOrDefault(value) + " ";        
             number %= hundredValue;
         }
+
+        words += GetUnitTensString(number);
 
         return words;
     }
 
-    private string GetUnitTensString(int number, TextResource _textResources)
+    private string GetUnitTensString(int number)
     {
         string words = "";
         string[] unitsMap = _textResources.unitsMap;
@@ -73,15 +85,15 @@ public class TextResourcesManager
         if (number > 0)
         {
             if (words != "")
-                words += "and ";
+                words += _textResources.andValue + " ";
 
-            if (number < 20)
-                words += unitsMap[number];
+            if (number < 30)
+                words += unitsMap.GetValueOrDefault(number);
             else
             {
-                words += tensMap[number / 10];
+                words += tensMap.GetValueOrDefault(number / 10);
                 if ((number % 10) > 0)
-                    words += "-" + unitsMap[number % 10];
+                    words += " "+ _textResources.andValue + " " + unitsMap.GetValueOrDefault(number % 10);
             }
         }
 
