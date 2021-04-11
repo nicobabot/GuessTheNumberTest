@@ -19,7 +19,6 @@ public class NumberOption : MonoBehaviour
     private Color _initialColor;
     private ExerciceAnswer _answer;
 
-    //Have parent to send warning that means player has chosen
     public void Initialize(Color correctOptionColor, Color wrongOptionColor, float fadeDuration)
     {
         _correctOptionColor = correctOptionColor;

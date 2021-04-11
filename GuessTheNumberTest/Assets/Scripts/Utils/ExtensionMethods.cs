@@ -53,12 +53,4 @@ public static class ExtensionMethods
         if (list == null || i < 0 || i >= list.Count) return default;
         return list[i];
     }
-
-    public static void SetState(this List<NumberOption> list, bool state)
-    {
-        foreach (NumberOption item in list)
-        {
-            item.SetState(state);
-        }
-    }
 }

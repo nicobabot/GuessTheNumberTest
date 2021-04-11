@@ -14,6 +14,7 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private float _transitionDuration;
 
     private List<NumberOption> _numbers = new List<NumberOption>();
+    private Exercice _exerciceData;
 
     public void CreateOptions(int maxChoices)
     {
@@ -27,12 +28,13 @@ public class OptionsController : MonoBehaviour
 
     public void StartExercice(Exercice exerciceData, ExerciceAnswer exerciceAnswer)
     {
-        for (int i = 0; i < exerciceData.choices.Count; ++i)
+        _exerciceData = exerciceData;
+        for (int i = 0; i < _exerciceData.choices.Count; ++i)
         {
             NumberOption nb = _numbers.GetValueOrDefault(i);
             if (nb != null)
             {
-                nb.StartExercice(exerciceData.choices[i], i, exerciceAnswer);
+                nb.StartExercice(_exerciceData.choices[i], i, exerciceAnswer);
                 StartCoroutine(nb.ShowOption());
             }
         }
@@ -41,14 +43,45 @@ public class OptionsController : MonoBehaviour
     public IEnumerator EndExercice()
     {
         foreach (NumberOption nb in _numbers)
+        {
             StartCoroutine(nb.HideOption());
+        }
 
         yield return new WaitForSeconds(_transitionDuration);
     }
 
-    public List<NumberOption> GetOptionsObjects()
+    public void SetOptionsState(bool state)
     {
-        return _numbers;
+        foreach (NumberOption nb in _numbers)
+        {
+            nb.SetState(state);
+        }
     }
+
+    #region Animations
+    public void ShowCorrect()
+    {
+        NumberOption number = _numbers.GetValueOrDefault(_exerciceData.correctIndexChoice);
+        if (number != null)
+        {
+            number.SetCorrectOption();
+        }
+    }
+
+    public void ShowFailed(int index)
+    {
+        NumberOption number = _numbers.GetValueOrDefault(index);
+        if (number != null)
+        {
+            number.SetWrongOption();
+        }
+    }
+
+    public void ShowFailedAndCorrect(int index)
+    {
+        ShowFailed(index);
+        ShowCorrect();
+    }
+    #endregion
 
 }

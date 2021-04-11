@@ -46,7 +46,7 @@ public class ExerciceGame : MonoBehaviour
 
         _optionsController.StartExercice(exerciceData, _exerciceAnswer);
 
-        _exerciceAnswer.StartExerciceAnswer(exerciceData, _optionsController.GetOptionsObjects());
+        _exerciceAnswer.StartExerciceAnswer(exerciceData, _optionsController);
         yield return new WaitUntil(() => _exerciceAnswer.HasEndExercice);
         yield return new WaitForSeconds(_timeShowingAnswer);
 

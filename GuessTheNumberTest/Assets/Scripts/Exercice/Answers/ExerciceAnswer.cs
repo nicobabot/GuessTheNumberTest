@@ -8,14 +8,17 @@ public class NumberExercice
     public int attempts;
     public int timesFailed;
 
-    public NumberExercice(int newNumber)
+    private int _resetCounterValue = 0;
+
+    public NumberExercice(int newNumber, int resetCounterValue)
     {
         number = newNumber;
+        _resetCounterValue = resetCounterValue;
     }
 
     public void ResetCounter(bool force = false)
     {
-        if (timesFailed >= 2 || force)
+        if (timesFailed >= _resetCounterValue || force)
         {
             timesFailed = 0;
         }
@@ -24,22 +27,29 @@ public class NumberExercice
 
 public class ExerciceAnswer : MonoBehaviour
 {
+    [SerializeField] private int _failResetCounter = 2;
     public bool HasEndExercice => _hasEndExercice;
     private bool _hasEndExercice;
 
     private List<NumberExercice> _numbers = new List<NumberExercice>();
-    private List<NumberOption> _numberOptions;
+    private OptionsController _optionsController;
     private Exercice _exercice;
 
     private NumberExercice _numExercice;
     private int _itNum;
     private bool _isNew;
 
-    public void StartExerciceAnswer(Exercice exercice, List<NumberOption> numberOptions)
+    public delegate void CorrectAnswer();
+    public static event CorrectAnswer onCorrectAnswer;
+
+    public delegate void IncorrectAnswer();
+    public static event IncorrectAnswer onIncorrectAnswer;
+
+    public void StartExerciceAnswer(Exercice exercice, OptionsController optionsController)
     {
         _hasEndExercice = false;
         _exercice = exercice;
-        _numberOptions = numberOptions;
+        _optionsController = optionsController;
 
         int number = _exercice.correctNumber;
 
@@ -47,13 +57,13 @@ public class ExerciceAnswer : MonoBehaviour
         _isNew = _numExercice == null;
         if (_isNew)
         {
-            _numExercice = new NumberExercice(number);
+            _numExercice = new NumberExercice(number, _failResetCounter);
         }
     }
 
     public void NumberChosen(int chosenNumber, int index)
     {
-        _numberOptions.SetState(false);
+        _optionsController.SetOptionsState(false);
         bool hasGuessed = _numExercice.number == chosenNumber;
         ++_numExercice.attempts;
 
@@ -71,32 +81,21 @@ public class ExerciceAnswer : MonoBehaviour
     {
         ++_numExercice.timesFailed;
 
-        NumberOption number = _numberOptions.GetValueOrDefault(index);
-
         if (_numExercice.timesFailed == 1)
         {
             //First Fail Animation
-            if (number != null)
-            {
-                number.SetWrongOption();
-            }
+            _optionsController.ShowFailed(index);
         }
         else if (_numExercice.timesFailed == 2)
         {
             //Second Fail Animation
-            if (number != null)
-            {
-                number.SetWrongOption();
-            }
-            NumberOption correctNumber = _numberOptions.GetValueOrDefault(_exercice.correctIndexChoice);
-            if (correctNumber != null)
-            {
-                correctNumber.SetCorrectOption();
-            }
+            _optionsController.ShowFailedAndCorrect(index);
         }
+
         //Send to global counter a fail
         _numExercice.ResetCounter();
         _numbers.Add(_numExercice);
+        onIncorrectAnswer?.Invoke();
         _hasEndExercice = true;
     }
 
@@ -104,14 +103,12 @@ public class ExerciceAnswer : MonoBehaviour
     {
         //Send to global counter a success
         //Success Animation
-        NumberOption number = _numberOptions.GetValueOrDefault(_exercice.correctIndexChoice);
-        if (number != null)
-        {
-            number.SetCorrectOption();
-        }
-        //We force to reset the fail counter because the user has been successful
+        _optionsController.ShowCorrect();
+
+        //Correct answer -> Force reset counter
         _numExercice.ResetCounter(true);
         _numbers.Add(_numExercice);
+        onCorrectAnswer?.Invoke();
         _hasEndExercice = true;
     }
 
