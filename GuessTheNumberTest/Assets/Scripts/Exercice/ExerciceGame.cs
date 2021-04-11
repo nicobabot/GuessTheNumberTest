@@ -9,17 +9,18 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private int _maxChoices;
     [SerializeField] private int _minRandomRange;
     [SerializeField] private int _maxRandomRange;
+    [SerializeField] private float _timeShowingAnswer;
 
     [Header("Exercice Objects")]
     [SerializeField] private Transform _grid;
     [SerializeField] private NumberOption _numberOptionObject;
     [SerializeField] private TextMeshProUGUI _numberWord;
+    [SerializeField] private OptionsController _optionsController;
     [SerializeField] private ExerciceAnswer _exerciceAnswer;
 
     [Header("Text Data")]
     [SerializeField] private string _textDocument;
 
-    private List<NumberOption> _numbers = new List<NumberOption>();
     private ExerciceGenerator _exerciceGenerator;
     private TextResourcesManager _textManager;
 
@@ -27,11 +28,7 @@ public class ExerciceGame : MonoBehaviour
     {
         _textManager = new TextResourcesManager(_textDocument);
         _exerciceGenerator = new ExerciceGenerator();
-        for (int i = 0; i < _maxChoices; ++i)
-        {
-            NumberOption nb = Instantiate(_numberOptionObject, _grid);
-            _numbers.Add(nb);
-        }
+        _optionsController.CreateOptions(_maxChoices);
         _numberWord.alpha = 0;
         StartCoroutine(PlayExercice());
     }
@@ -47,34 +44,14 @@ public class ExerciceGame : MonoBehaviour
         yield return new WaitForSeconds(2);
         yield return _numberWord.DoAlphaTransition(0, 2);
 
+        _optionsController.StartExercice(exerciceData, _exerciceAnswer);
 
-        for (int i = 0; i < exerciceData.choices.Count; ++i)
-        {
-            NumberOption nb = _numbers.GetValueOrDefault(i);
-            if (nb != null)
-            {
-                nb.Initialize(exerciceData.choices[i], i, _exerciceAnswer);
-                StartCoroutine(nb.ShowOption());
-            }
-        }
-        _exerciceAnswer.InitializeExercice(exerciceData, _numbers);
-
+        _exerciceAnswer.StartExerciceAnswer(exerciceData, _optionsController.GetOptionsObjects());
         yield return new WaitUntil(() => _exerciceAnswer.HasEndExercice);
+        yield return new WaitForSeconds(_timeShowingAnswer);
 
-        foreach (NumberOption nb in _numbers)
-            StartCoroutine(nb.HideOption());
-        //Wait to hide
+        yield return _optionsController.EndExercice();
 
         StartCoroutine(PlayExercice());
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
-            Debug.Log(exerciceData.correctNumber);
-            Debug.Log(_textManager.NumberToWords(exerciceData.correctNumber));
-        }
     }
 }

@@ -10,10 +10,9 @@ public class NumberOption : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    [Header("Visual Info")]
-    [SerializeField] private Color _correctOptionColor;
-    [SerializeField] private Color _wrongOptionColor;
-    [SerializeField] private float _fadeDuration;
+    private Color _correctOptionColor;
+    private Color _wrongOptionColor;
+    private float _fadeDuration;
 
     private int _myNumber;
     private int _id;
@@ -21,13 +20,20 @@ public class NumberOption : MonoBehaviour
     private ExerciceAnswer _answer;
 
     //Have parent to send warning that means player has chosen
-    public void Initialize(int number, int id, ExerciceAnswer answer)
+    public void Initialize(Color correctOptionColor, Color wrongOptionColor, float fadeDuration)
+    {
+        _correctOptionColor = correctOptionColor;
+        _wrongOptionColor = wrongOptionColor;
+        _fadeDuration = fadeDuration;
+    }
+
+    public void StartExercice(int number, int id, ExerciceAnswer answer)
     {
         _myNumber = number;
         _id = id;
         _answer = answer;
         _numberText.text = number.ToString();
-        _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 0);
+        _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 1);
     }
 
     public void SetState(bool state)
@@ -55,6 +61,7 @@ public class NumberOption : MonoBehaviour
     {
         SetState(false);
         yield return AlphaTransition(0, _fadeDuration);
+        ResetValues();
     }
 
     private IEnumerator AlphaTransition(float endValue, float duration)

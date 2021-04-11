@@ -54,13 +54,11 @@ public static class ExtensionMethods
         return list[i];
     }
 
-    public static T GetValueOrDefault<T>(this Dictionary<string, T> dictionary, string key)
+    public static void SetState(this List<NumberOption> list, bool state)
     {
-        T retStr = default;
-        if (dictionary != null && dictionary.TryGetValue(key, out retStr))
+        foreach (NumberOption item in list)
         {
-            return retStr;
+            item.SetState(state);
         }
-        return retStr;
     }
 }
