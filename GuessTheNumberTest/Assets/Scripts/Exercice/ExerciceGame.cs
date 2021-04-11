@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,6 +8,8 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private int _maxChoices;
     [SerializeField] private int _minRandomRange;
     [SerializeField] private int _maxRandomRange;
+    [SerializeField] private float _timeShowingExerciceNumber = 2;
+    [SerializeField] private float _exerciceNumberAlphaDuration= 2;
     [SerializeField] private float _timeShowingAnswer;
 
     [Header("Exercice Objects")]
@@ -34,22 +35,31 @@ public class ExerciceGame : MonoBehaviour
     private IEnumerator PlayExercice()
     {
         Exercice exerciceData = _exerciceGenerator.GenerateNewExercice(_maxChoices, _minRandomRange, _maxRandomRange);
-
         Debug.Log(exerciceData.correctNumber);
         _numberWord.text = _textManager.NumberToWords(exerciceData.correctNumber);
 
-        yield return _numberWord.DoAlphaTransition(1, 2);
-        yield return new WaitForSeconds(2);
-        yield return _numberWord.DoAlphaTransition(0, 2);
+        yield return ShowExerciceNumber();
 
+        yield return ChooseOptionRoutine(exerciceData);
+
+        StartCoroutine(PlayExercice());
+    }
+
+    private IEnumerator ShowExerciceNumber()
+    {
+        yield return _numberWord.DoAlphaTransition(1, _exerciceNumberAlphaDuration);
+        yield return new WaitForSeconds(_timeShowingExerciceNumber);
+        yield return _numberWord.DoAlphaTransition(0, _exerciceNumberAlphaDuration);
+    }
+
+    private IEnumerator ChooseOptionRoutine(Exercice exerciceData)
+    {
         _optionsController.StartExercice(exerciceData, _exerciceAnswer);
-
         _exerciceAnswer.StartExerciceAnswer(exerciceData, _optionsController);
+
         yield return new WaitUntil(() => _exerciceAnswer.HasEndExercice);
         yield return new WaitForSeconds(_timeShowingAnswer);
 
         yield return _optionsController.EndExercice();
-
-        StartCoroutine(PlayExercice());
     }
 }

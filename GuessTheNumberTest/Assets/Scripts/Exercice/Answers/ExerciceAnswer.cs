@@ -31,14 +31,14 @@ public class ExerciceAnswer : MonoBehaviour
     public bool HasEndExercice => _hasEndExercice;
     private bool _hasEndExercice;
 
+    private bool _isNew;
     private List<NumberExercice> _numbers = new List<NumberExercice>();
     private OptionsController _optionsController;
     private Exercice _exercice;
-
     private NumberExercice _numExercice;
-    private int _itNum;
-    private bool _isNew;
 
+
+    //Events to warn of an Exercice Answer
     public delegate void CorrectAnswer();
     public static event CorrectAnswer onCorrectAnswer;
 
@@ -53,7 +53,7 @@ public class ExerciceAnswer : MonoBehaviour
 
         //If we already used the number or we need to create it
         int number = _exercice.correctNumber;
-        _numExercice = HasPlayedNumber(number, out _itNum);
+        _numExercice = HasPlayedNumber(number);
         _isNew = _numExercice == null;
         if (_isNew)
         {
@@ -67,13 +67,13 @@ public class ExerciceAnswer : MonoBehaviour
         bool hasGuessed = _numExercice.number == chosenNumber;
         ++_numExercice.attempts;
 
-        if (!hasGuessed)
+        if (hasGuessed)
         {
-            FailedExercice(index);
+            SuccessExercice();
         }
         else
         {
-            SuccessExercice();
+            FailedExercice(index);
         }
         _hasEndExercice = true;
     }
@@ -105,7 +105,7 @@ public class ExerciceAnswer : MonoBehaviour
         //Success Animation
         _optionsController.ShowCorrect();
 
-        //Correct answer -> Force reset counter
+        //Correct answer -> Force reset error counter
         _numExercice.ResetCounter(true);
         _numbers.Add(_numExercice);
 
@@ -113,16 +113,14 @@ public class ExerciceAnswer : MonoBehaviour
         onCorrectAnswer?.Invoke();
     }
 
-    private NumberExercice HasPlayedNumber(int number, out int it) 
+    private NumberExercice HasPlayedNumber(int number) 
     {
-        it = 0;
         foreach (NumberExercice item in _numbers)
         {
             if (item.number == number)
             {
                 return item;
             }
-            ++it;
         }
         return null;
     }

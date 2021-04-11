@@ -8,5 +8,7 @@
 "thousandValue":"mil",
 "millionValue":"millones",
 "andValue":"y",
-"minusValue":"menos"
+"minusValue":"menos",
+"noPatternsNumber":"30",
+"oneMillionValue": "un millon"
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Exercice
@@ -17,6 +16,7 @@ public class ExerciceGenerator
         exercice.correctNumber = Random.Range(minRandomRange, maxRandomRange);
         exercice.choices = GetListOfChoices(maxChoices, minRandomRange, maxRandomRange, exercice.correctNumber);
         exercice.choices.Shuffle();
+        //After the shuffle we store where of the list is the correct choice
         exercice.correctIndexChoice = exercice.choices.IndexOf(exercice.correctNumber);
         return exercice;
     }
@@ -27,6 +27,7 @@ public class ExerciceGenerator
         List<int> choices = new List<int>();
         choices.Add(exception);
 
+        //If the number of choices are greater than the range we skip the exercice
         if (!CanGenerateAllChoices(maxChoices, minRandomRange, maxRandomRange))
         {
             return choices;
@@ -34,6 +35,7 @@ public class ExerciceGenerator
 
         for (int i = 0; i < maxChoices - 1; ++i)
         {
+            //Keep searching number unitll it's not repeated
             do
             {
                 retValue = Random.Range(minRandomRange, maxRandomRange);
