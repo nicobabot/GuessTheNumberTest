@@ -8,6 +8,8 @@ public class ExerciceGame : MonoBehaviour
     [SerializeField] private int _maxChoices;
     [SerializeField] private int _minRandomRange;
     [SerializeField] private int _maxRandomRange;
+
+    [Header("Transitions Data")]
     [SerializeField] private float _timeShowingExerciceNumber = 2;
     [SerializeField] private float _exerciceNumberAlphaDuration= 2;
     [SerializeField] private float _timeShowingAnswer;
