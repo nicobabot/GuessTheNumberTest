@@ -48,11 +48,11 @@ public class OptionsController : MonoBehaviour
         yield return new WaitForSeconds(_transitionDuration);
     }
 
-    public void SetOptionsState(bool state)
+    public void SetOptionsInteractable(bool state)
     {
         foreach (IOption option in _options)
         {
-            option.SetState(state);
+            option.SetInteractable(state);
         }
     }
 

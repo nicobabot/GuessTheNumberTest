@@ -66,7 +66,7 @@ public class ExerciceAnswer : AbstractSubject, IExerciceAnswer
 
     public void ChoseNumber(int chosenNumber, int index)
     {
-        _optionsController.SetOptionsState(false);
+        _optionsController.SetOptionsInteractable(false);
         bool hasGuessed = _numExercice.number == chosenNumber;
         ++_numExercice.attempts;
 

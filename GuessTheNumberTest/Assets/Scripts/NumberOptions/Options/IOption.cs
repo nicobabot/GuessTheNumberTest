@@ -8,7 +8,7 @@ public interface IOption
     void StartExercice(int number, int index, IExerciceAnswer answer);
     IEnumerator Show();
     IEnumerator Hide();
-    void SetState(bool state);
+    void SetInteractable(bool state);
     
     //Correct and wrong could be IEnumerators
     void SetCorrect();

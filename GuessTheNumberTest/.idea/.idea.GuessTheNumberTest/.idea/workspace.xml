@@ -34,19 +34,19 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/ExerciceGame.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Logic/IExerciceLogic.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/ExerciceGenerator.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/OptionsController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/IOption.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/NumberOption.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/ExerciceAnswer.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Observer/AbstactObserver.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/Types/IExerciceAnswer.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/AnswersCounter.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/Types/ExerciceAnswer.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Observer/AbstractSubject.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Generator/IExerciceGenerator.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Generator/ExerciceGenerator.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Behaviour/IExerciceBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Behaviour/RecognizeNumberExercice.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/AnswersCounter.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/IOption.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/OptionsController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1t4CKa6s0qc9G8Df8sV8WuFhTke" />
@@ -92,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622018913315</updated>
-      <workItem from="1622018919705" duration="12221000" />
+      <workItem from="1622018919705" duration="14978000" />
     </task>
     <servers />
   </component>

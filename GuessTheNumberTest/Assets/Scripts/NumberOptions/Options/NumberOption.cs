@@ -35,7 +35,7 @@ public class NumberOption : MonoBehaviour, IOption
         _numberText.text = number.ToString();
     }
 
-    public void SetState(bool state)
+    public void SetInteractable(bool state)
     {
         _button.interactable = state;
     }
@@ -53,12 +53,12 @@ public class NumberOption : MonoBehaviour, IOption
     public IEnumerator Show()
     {
         yield return AlphaScaleTransition(1, _transitionDuration);
-        SetState(true);
+        SetInteractable(true);
     }
 
     public IEnumerator Hide()
     {
-        SetState(false);
+        SetInteractable(false);
         yield return AlphaScaleTransition(0, _transitionDuration);
         ResetValues();
     }
