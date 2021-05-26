@@ -12,19 +12,23 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/IOption.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/Types/IExerciceAnswer.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/NumberOption.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/IOption.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/IExerciceBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Types/IExerciceBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Types/RecognizeNumberExercice.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/ExerciceGame.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Behaviour/RecognizeNumberExercice.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/OptionsController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Logic/IExerciceLogic.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/ExerciceGenerator.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Behaviour/RecognizeNumberExercice.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/ExerciceAnswer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Exercice/Answers/Types/IExerciceAnswer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/OptionsController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/IOption.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NumberOptions/Options/NumberOption.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1t4CKa6s0qc9G8Df8sV8WuFhTke" />
@@ -70,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622018913315</updated>
-      <workItem from="1622018919705" duration="6262000" />
+      <workItem from="1622018919705" duration="7874000" />
     </task>
     <servers />
   </component>

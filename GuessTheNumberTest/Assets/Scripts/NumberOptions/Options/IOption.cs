@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IOption
 {
     void Initialize();
-    void StartExercice(int number, int index, ExerciceAnswer answer);
+    void StartExercice(int number, int index, IExerciceAnswer answer);
     IEnumerator Show();
     IEnumerator Hide();
     void SetState(bool state);

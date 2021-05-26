@@ -25,7 +25,7 @@ public class NumberExercice
     }
 }
 
-public class ExerciceAnswer : MonoBehaviour
+public class ExerciceAnswer : MonoBehaviour, IExerciceAnswer
 {
     [SerializeField] private int _failResetCounter = 2;
     [SerializeField] private WrongAnswers[] _wrongAnswers;
@@ -61,7 +61,7 @@ public class ExerciceAnswer : MonoBehaviour
         }
     }
 
-    public void NumberChosen(int chosenNumber, int index)
+    public void ChoseNumber(int chosenNumber, int index)
     {
         _optionsController.SetOptionsState(false);
         bool hasGuessed = _numExercice.number == chosenNumber;

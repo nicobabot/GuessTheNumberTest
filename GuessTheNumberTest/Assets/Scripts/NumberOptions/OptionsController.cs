@@ -24,7 +24,7 @@ public class OptionsController : MonoBehaviour
         }
     }
 
-    public void StartExercice(Exercice exerciceData, ExerciceAnswer exerciceAnswer)
+    public void StartExercice(Exercice exerciceData, IExerciceAnswer exerciceAnswer)
     {
         _exerciceData = exerciceData;
         for (int i = 0; i < _exerciceData.choices.Count; ++i)

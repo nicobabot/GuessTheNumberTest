@@ -17,15 +17,17 @@ public class RecognizeNumberExercice : MonoBehaviour, IExerciceBehaviour
     [Header("Exercice Objects")]
     [SerializeField] private TextMeshProUGUI _numberWord;
     [SerializeField] private OptionsController _optionsController;
-    [SerializeField] private ExerciceAnswer _exerciceAnswer;
+    [SerializeField] private GameObject _exerciceAnswerObject;
 
     private ExerciceGenerator _exerciceGenerator;
     private TextResourcesManager _textManager;
-    
+    private IExerciceAnswer _exerciceAnswer;
+
     public void Initialize(ExerciceGenerator exerciceGenerator, TextResourcesManager textManager)
     {
         _exerciceGenerator = exerciceGenerator;
         _textManager = textManager;
+        _exerciceAnswer = _exerciceAnswerObject.GetComponent<IExerciceAnswer>();
         _optionsController.CreateOptions(_maxChoices);
         _numberWord.alpha = 0;
     }

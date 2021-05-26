@@ -250,16 +250,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &281040390 stripped
+--- !u!114 &281040388 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5918978598845099744, guid: 22bd41b46db6c954cbace168e2850b1f,
+  m_CorrespondingSourceObject: {fileID: 2468386351821744983, guid: 22bd41b46db6c954cbace168e2850b1f,
     type: 3}
   m_PrefabInstance: {fileID: 5918978598506796240}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55fb1753326c134f8a4a4d07f9b411b, type: 3}
+  m_Script: {fileID: 11500000, guid: 512ffff11a1d9524ca5527a67303b27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &281040389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3999991318305646350, guid: 22bd41b46db6c954cbace168e2850b1f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5918978598506796240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d064e034e85c46f42a638de9590cb8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
@@ -1062,6 +1074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1623997162}
   - component: {fileID: 1623997163}
+  - component: {fileID: 1623997164}
   m_Layer: 5
   m_Name: NumberExercice
   m_TagString: Untagged
@@ -1109,7 +1122,23 @@ MonoBehaviour:
   _timeShowingAnswer: 0.5
   _numberWord: {fileID: 1280891760}
   _optionsController: {fileID: 912974824}
-  _exerciceAnswer: {fileID: 281040390}
+  _exerciceAnswerObject: {fileID: 1623997161}
+--- !u!114 &1623997164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623997161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55fb1753326c134f8a4a4d07f9b411b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _failResetCounter: 2
+  _wrongAnswers:
+  - {fileID: 281040389}
+  - {fileID: 281040388}
 --- !u!224 &1653546000 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1680070749321489297, guid: d8f620ed337228a4786a9851d7e10fb3,

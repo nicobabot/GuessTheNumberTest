@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5918978598845099774}
   - component: {fileID: 5918978598845099775}
-  - component: {fileID: 5918978598845099744}
   - component: {fileID: 3999991318305646350}
   - component: {fileID: 2468386351821744983}
   m_Layer: 5
@@ -51,32 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bc3e9eba8eafb419a74520dcc7d08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxChoices: 3
-  _minRandomRange: 0
-  _maxRandomRange: 100
-  _timeShowingExerciceNumber: 2
-  _exerciceNumberAlphaDuration: 2
-  _timeShowingAnswer: 1
-  _numberWord: {fileID: 0}
-  _optionsController: {fileID: 0}
-  _exerciceAnswer: {fileID: 5918978598845099744}
+  _exerciceObject: {fileID: 0}
   _textDocument: Text/TextResources
---- !u!114 &5918978598845099744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5918978598845099773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55fb1753326c134f8a4a4d07f9b411b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _failResetCounter: 2
-  _wrongAnswers:
-  - {fileID: 3999991318305646350}
-  - {fileID: 2468386351821744983}
 --- !u!114 &3999991318305646350
 MonoBehaviour:
   m_ObjectHideFlags: 0

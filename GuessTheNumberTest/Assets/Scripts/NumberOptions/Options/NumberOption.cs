@@ -20,14 +20,14 @@ public class NumberOption : MonoBehaviour, IOption
     private Color _initialColor;
 
     //Exercice answer parent
-    private ExerciceAnswer _answer;
+    private IExerciceAnswer _answer;
 
     public void Initialize()
     {
         _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 1);
     }
 
-    public void StartExercice(int number, int index, ExerciceAnswer answer)
+    public void StartExercice(int number, int index, IExerciceAnswer answer)
     {
         _myNumber = number;
         _index = index;
@@ -80,7 +80,7 @@ public class NumberOption : MonoBehaviour, IOption
     //Function that will be called when player choses the number
     public void ChooseNumber()
     {
-        _answer.NumberChosen(_myNumber, _index);
+        _answer.ChoseNumber(_myNumber, _index);
     }
 
     //Reset color and state to the original state
