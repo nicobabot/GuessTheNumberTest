@@ -25,13 +25,16 @@ public class NumberExercice
     }
 }
 
-public class ExerciceAnswer : MonoBehaviour, IExerciceAnswer
+public class ExerciceAnswer : AbstractSubject, IExerciceAnswer
 {
     [SerializeField] private int _failResetCounter = 2;
     [SerializeField] private WrongAnswers[] _wrongAnswers;
 
     public bool HasEndExercice => _hasEndExercice;
     private bool _hasEndExercice;
+    
+    public bool IsCorrectAnswer => _isCorrectAnswer;
+    private bool _isCorrectAnswer;
 
     private List<NumberExercice> _numbers = new List<NumberExercice>();
     private OptionsController _optionsController;
@@ -40,11 +43,11 @@ public class ExerciceAnswer : MonoBehaviour, IExerciceAnswer
 
 
     //Events to warn of an Exercice Answer
-    public delegate void CorrectAnswer();
+    /*public delegate void CorrectAnswer();
     public static event CorrectAnswer onCorrectAnswer;
 
     public delegate void WrongAnswer();
-    public static event WrongAnswer onWrongAnswer;
+    public static event WrongAnswer onWrongAnswer;*/
 
     public void StartExerciceAnswer(Exercice exercice, OptionsController optionsController)
     {
@@ -93,7 +96,9 @@ public class ExerciceAnswer : MonoBehaviour, IExerciceAnswer
         _numbers.Add(_numExercice);
 
         //Send to global event fail
-        onWrongAnswer?.Invoke();
+        //onWrongAnswer?.Invoke();
+        _isCorrectAnswer = false;
+        Notify();
     }
 
     private void SuccessExercice()
@@ -106,7 +111,9 @@ public class ExerciceAnswer : MonoBehaviour, IExerciceAnswer
         _numbers.Add(_numExercice);
 
         //Send to global event success
-        onCorrectAnswer?.Invoke();
+        //onCorrectAnswer?.Invoke();
+        _isCorrectAnswer = true;
+        Notify();
     }
 
     private NumberExercice HasPlayedNumber(int number) 

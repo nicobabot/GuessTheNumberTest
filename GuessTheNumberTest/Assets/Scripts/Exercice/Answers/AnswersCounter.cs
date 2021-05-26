@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class AnswersCounter : MonoBehaviour
+public class AnswersCounter : AbstactObserver
 {
+    [SerializeField] private AbstractSubject _subject;
     [SerializeField] private TextMeshProUGUI _correctAnswersText;
     [SerializeField] private TextMeshProUGUI _incorrectAnswersText;
 
@@ -11,16 +12,31 @@ public class AnswersCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        ExerciceAnswer.onWrongAnswer += AddIncorrectCounter;
-        ExerciceAnswer.onCorrectAnswer += AddCorrectCounter;
+        _subject?.AddListener(this);
     }
 
     private void OnDisable()
     {
-        ExerciceAnswer.onWrongAnswer -= AddIncorrectCounter;
-        ExerciceAnswer.onCorrectAnswer -= AddCorrectCounter;
+        _subject?.RemoveListener(this);
     }
+    
+    public override void UpdateObserver(AbstractSubject subject)
+    {
+        IExerciceAnswer answer = subject as IExerciceAnswer;
 
+        if (answer != null)
+        {
+            if (answer.IsCorrectAnswer)
+            {
+                AddCorrectCounter();
+            }
+            else
+            {
+                AddIncorrectCounter();
+            }
+        }
+    }
+    
     private void AddCorrectCounter()
     {
         ++_correctAnswers;
