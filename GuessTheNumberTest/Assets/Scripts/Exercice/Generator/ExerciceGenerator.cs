@@ -8,7 +8,7 @@ public class Exercice
     public int correctIndexChoice;
 }
 
-public class ExerciceGenerator
+public class ExerciceGenerator : IExerciceGenerator
 {
     public Exercice GenerateNewExercice(int maxChoices, int minRandomRange, int maxRandomRange)
     {

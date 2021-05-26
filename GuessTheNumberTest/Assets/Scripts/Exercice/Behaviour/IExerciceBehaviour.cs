@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IExerciceBehaviour
 {
-    void Initialize(ExerciceGenerator exerciceGenerator, TextResourcesManager textManager);
+    void Initialize(IExerciceGenerator exerciceGenerator, TextResourcesManager textManager);
     IEnumerator Play();
     IEnumerator End();
 }

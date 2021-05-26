@@ -19,11 +19,11 @@ public class RecognizeNumberExercice : MonoBehaviour, IExerciceBehaviour
     [SerializeField] private OptionsController _optionsController;
     [SerializeField] private GameObject _exerciceAnswerObject;
 
-    private ExerciceGenerator _exerciceGenerator;
+    private IExerciceGenerator _exerciceGenerator;
     private TextResourcesManager _textManager;
     private IExerciceAnswer _exerciceAnswer;
 
-    public void Initialize(ExerciceGenerator exerciceGenerator, TextResourcesManager textManager)
+    public void Initialize(IExerciceGenerator exerciceGenerator, TextResourcesManager textManager)
     {
         _exerciceGenerator = exerciceGenerator;
         _textManager = textManager;
