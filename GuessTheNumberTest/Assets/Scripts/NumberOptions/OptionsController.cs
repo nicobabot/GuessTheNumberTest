@@ -5,24 +5,22 @@ using UnityEngine;
 public class OptionsController : MonoBehaviour
 {
     [Header("Object Data")]
-    [SerializeField] private NumberOption _numberOptionObject;
+    [SerializeField] private GameObject _optionPrefab;
     [SerializeField] private RectTransform _grid;
 
     [Header("Visual Info")]
-    [SerializeField] private Color _correctOptionColor;
-    [SerializeField] private Color _wrongOptionColor;
     [SerializeField] private float _transitionDuration;
-
-    private List<NumberOption> _numbers = new List<NumberOption>();
+    
+    private List<IOption> _options = new List<IOption>();
     private Exercice _exerciceData;
 
     public void CreateOptions(int maxChoices)
     {
         for (int i = 0; i < maxChoices; ++i)
         {
-            NumberOption nb = Instantiate(_numberOptionObject, _grid);
-            nb.Initialize(_correctOptionColor, _wrongOptionColor, _transitionDuration);
-            _numbers.Add(nb);
+            IOption option = Instantiate(_optionPrefab, _grid).GetComponent<IOption>();
+            option.Initialize();
+            _options.Add(option);
         }
     }
 
@@ -31,20 +29,20 @@ public class OptionsController : MonoBehaviour
         _exerciceData = exerciceData;
         for (int i = 0; i < _exerciceData.choices.Count; ++i)
         {
-            NumberOption nb = _numbers.GetValueOrDefault(i);
-            if (nb != null)
+            IOption option = _options.GetValueOrDefault(i);
+            if (option != null)
             {
-                nb.StartExercice(_exerciceData.choices[i], i, exerciceAnswer);
-                StartCoroutine(nb.ShowOption());
+                option.StartExercice(_exerciceData.choices[i], i, exerciceAnswer);
+                StartCoroutine(option.Show());
             }
         }
     }
 
     public IEnumerator EndExercice()
     {
-        foreach (NumberOption nb in _numbers)
+        foreach (IOption option in _options)
         {
-            StartCoroutine(nb.HideOption());
+            StartCoroutine(option.Hide());
         }
 
         yield return new WaitForSeconds(_transitionDuration);
@@ -52,28 +50,28 @@ public class OptionsController : MonoBehaviour
 
     public void SetOptionsState(bool state)
     {
-        foreach (NumberOption nb in _numbers)
+        foreach (IOption option in _options)
         {
-            nb.SetState(state);
+            option.SetState(state);
         }
     }
 
     #region Animations
     public void ShowCorrect()
     {
-        NumberOption number = _numbers.GetValueOrDefault(_exerciceData.correctIndexChoice);
-        if (number != null)
+        IOption option = _options.GetValueOrDefault(_exerciceData.correctIndexChoice);
+        if (option != null)
         {
-            number.SetCorrectOption();
+            option.SetCorrect();
         }
     }
 
     public void ShowFailed(int index)
     {
-        NumberOption number = _numbers.GetValueOrDefault(index);
-        if (number != null)
+        IOption option = _options.GetValueOrDefault(index);
+        if (option != null)
         {
-            number.SetWrongOption();
+            option.SetWrong();
         }
     }
 

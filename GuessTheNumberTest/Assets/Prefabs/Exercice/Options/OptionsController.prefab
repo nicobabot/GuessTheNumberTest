@@ -48,9 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ffc87901af26f49a5f148632af01af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberOptionObject: {fileID: 7807734526508240599, guid: 86c2d079ae9c8d342b691efe0dddc588,
+  _optionPrefab: {fileID: 1951201310878222339, guid: 86c2d079ae9c8d342b691efe0dddc588,
     type: 3}
   _grid: {fileID: 0}
-  _correctOptionColor: {r: 0.002430655, g: 0.6603774, b: 0, a: 1}
-  _wrongOptionColor: {r: 0.7264151, g: 0, b: 0, a: 1}
   _transitionDuration: 2

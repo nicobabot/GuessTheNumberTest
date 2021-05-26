@@ -3,28 +3,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class NumberOption : MonoBehaviour
+public class NumberOption : MonoBehaviour, IOption
 {
     [SerializeField] private TextMeshProUGUI _numberText;
     [SerializeField] private Button _button;
     [SerializeField] private CanvasGroup _canvasGroup;
+    
+    [Header("Visual Info")]
+    [SerializeField] private Color _correctOptionColor;
+    [SerializeField] private Color _wrongOptionColor;
+    [SerializeField] private float _transitionDuration;
 
     //Number Option Data
-    private float _fadeDuration;
     private int _myNumber;
     private int _index;
-    private Color _correctOptionColor;
-    private Color _wrongOptionColor;
     private Color _initialColor;
 
     //Exercice answer parent
     private ExerciceAnswer _answer;
 
-    public void Initialize(Color correctOptionColor, Color wrongOptionColor, float fadeDuration)
+    public void Initialize()
     {
-        _correctOptionColor = correctOptionColor;
-        _wrongOptionColor = wrongOptionColor;
-        _fadeDuration = fadeDuration;
+        _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 1);
     }
 
     public void StartExercice(int number, int index, ExerciceAnswer answer)
@@ -33,7 +33,6 @@ public class NumberOption : MonoBehaviour
         _index = index;
         _answer = answer;
         _numberText.text = number.ToString();
-        _initialColor = new Color(_numberText.color.r, _numberText.color.g, _numberText.color.b, 1);
     }
 
     public void SetState(bool state)
@@ -41,26 +40,26 @@ public class NumberOption : MonoBehaviour
         _button.interactable = state;
     }
 
-    public void SetCorrectOption()
+    public void SetCorrect()
     {
         _numberText.color = _correctOptionColor;
     }
 
-    public void SetWrongOption()
+    public void SetWrong()
     {
         _numberText.color = _wrongOptionColor;
     }
 
-    public IEnumerator ShowOption()
+    public IEnumerator Show()
     {
-        yield return AlphaScaleTransition(1, _fadeDuration);
+        yield return AlphaScaleTransition(1, _transitionDuration);
         SetState(true);
     }
 
-    public IEnumerator HideOption()
+    public IEnumerator Hide()
     {
         SetState(false);
-        yield return AlphaScaleTransition(0, _fadeDuration);
+        yield return AlphaScaleTransition(0, _transitionDuration);
         ResetValues();
     }
 
